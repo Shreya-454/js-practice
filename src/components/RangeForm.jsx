@@ -5,14 +5,38 @@ function RangeForm() {
   const [endValue, setEndValue] = useState(0);
   const [exponent, setExponent] = useState(1);
   const [results, setResults] = useState([]);
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // Validation logic
+    if (startValue < 0 || startValue > 100) {
+      setError('Start value must be between 0 and 100.');
+      return;
+    }
+    
+    if (endValue < 0 || endValue > 100) {
+      setError('End value must be between 0 and 100.');
+      return;
+    }
+    
+    if (exponent < 0 || exponent > 10) {
+      setError('Exponent must be between 0 and 10.');
+      return;
+    }
+
+    if (startValue > endValue) {
+      setError('Start value should not be greater than end value.');
+      return;
+    }
+
+    // Clear error and calculate results if input is valid
+    setError('');
     const newResults = [];
     for (let i = startValue; i <= endValue; i++) {
-      const result = Math.pow(i, exponent); 
-      newResults.push({ result });
+      const result = Math.pow(i, exponent);
+      newResults.push({ number: i, result });
     }
     setResults(newResults);
   };
@@ -23,6 +47,12 @@ function RangeForm() {
         <h2 className="text-2xl font-bold mb-4 text-center">Range and Exponent Calculator</h2>
         
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="bg-red-100 text-red-700 p-2 rounded-md">
+              {error}
+            </div>
+          )}
+          
           <div>
             <label htmlFor="startValue" className="block text-sm font-medium text-gray-700">Start Value</label>
             <input
@@ -46,6 +76,7 @@ function RangeForm() {
               required
             />
           </div>
+          
           <div>
             <label htmlFor="exponent" className="block text-sm font-medium text-gray-700">Exponent</label>
             <input
@@ -57,6 +88,7 @@ function RangeForm() {
               required
             />
           </div>
+          
           <div>
             <button
               type="submit"
@@ -66,13 +98,13 @@ function RangeForm() {
             </button>
           </div>
         </form>
+
         {results.length > 0 && (
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">Results:</h3>
             <ul className="list-none flex flex-wrap w-full gap-5 pl-5">
               {results.map(({ number, result }) => (
-                <li key={number} className="text-gray-700">
-                   {result}
+                <li key={number} className="text-gray-700"> {result}
                 </li>
               ))}
             </ul>
