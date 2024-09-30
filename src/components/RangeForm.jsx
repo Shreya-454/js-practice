@@ -69,7 +69,7 @@ function RangeForm() {
         {results.length > 0 && (
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">Results:</h3>
-            <ul className="list-none flex gap-5 pl-5">
+            <ul className="list-none flex flex-wrap w-full gap-5 pl-5">
               {results.map(({ number, result }) => (
                 <li key={number} className="text-gray-700">
                    {result}
