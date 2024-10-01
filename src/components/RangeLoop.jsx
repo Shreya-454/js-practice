@@ -15,7 +15,7 @@ const RangeLoop = () => {
 
     return (
         <div className='container max-w-[1140px] mx-auto mt-10'>
-            <div className='flex gap-4 justify-center'>
+            <div className='flex gap-4 justify-center flex-wrap'>
                 {Table().map((table, index) => (
                     <div key={index} className='flex flex-col items-center'>
                         <h3 className='text-2xl text-blue-600'>Table of {index + 2}</h3>
