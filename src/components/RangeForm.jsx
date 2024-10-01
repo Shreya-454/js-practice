@@ -10,7 +10,7 @@ function RangeForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validation logic
+  
     if (startValue < 0 || startValue > 100) {
       setError('Start value must be between 0 and 100.');
       return;
@@ -30,8 +30,6 @@ function RangeForm() {
       setError('Start value should not be greater than end value.');
       return;
     }
-
-    // Clear error and calculate results if input is valid
     setError('');
     const newResults = [];
     for (let i = startValue; i <= endValue; i++) {
